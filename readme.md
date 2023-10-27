@@ -4,7 +4,7 @@ This Scala program is a simple XML parser that converts a `List[Char]` containin
 
 ## How to Use
 
-1. Clone the repository or copy the code from this README into your own Scala project.
+1. Clone the repository or copy the code into your own Scala project.
 
 2. To parse XML data, use the `parseXML` method of the `XMLParser` object. Pass a `List[Char]` as input to this method, and it will return a `List[String]` containing each full XML tag.
 
