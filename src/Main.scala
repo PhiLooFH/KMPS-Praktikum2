@@ -9,22 +9,31 @@ String, tracks: List[Track])
 
 object Main {
 
-  def createTokenList(charList: List[Char]): String = charList match {
-    case Nil => "not found"
-    case '<'::tail => tail match {
+  @tailrec
+  private def createTokenList(charList: List[Char], tokenList: List[String]): List[String] = charList match {
+    case Nil => tokenList
+    case '\r'::xs  =>
+      createTokenList(xs, tokenList)
+    case '<'::xs =>
+      val newTokenList = tokenList :+ getTagAsString(xs, "")
+      createTokenList(xs, newTokenList)
+    case _::xs =>
+      createTokenList(xs, tokenList)
+  }
 
-      case head::'>'::xs => createTokenList(xs)
-
-    }
-    case _::tail => createTokenList(tail)
+  @tailrec
+  private def getTagAsString(charList: List[Char], returnString: String) : String = charList match {
+    case Nil => returnString
+    case '>'::tail => returnString
+    case x::tail =>
+      val builtString = returnString.concat(x.toString)
+      getTagAsString(tail, builtString)
   }
 
   def main(args: Array[String]): Unit = {
     val fileSource = Source.fromFile("resources/alben.xml")
-    val xmlFile = fileSource.toList
-    fileSource.close()
-    for (element <- createTokenList(xmlFile)) {
-      println(element)
-    }
+    val xmlFile = fileSource.toList; fileSource.close()
+    val tokenList: List[String] = Nil
+    println(createTokenList(xmlFile, tokenList))
   }
 }
