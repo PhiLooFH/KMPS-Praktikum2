@@ -33,9 +33,14 @@ private def createTokenList(charList: List[Char], tokenList: List[String]): List
   case _::xs => createTokenList(xs, tokenList)
 }
 
+private def printList(saidList: List[Any]): Unit = saidList match {
+  case Nil =>
+  case x :: xs => println(x); printList(xs)
+}
+
 def main(args: Array[String]): Unit = {
   val fileSource = Source.fromFile("/Users/philipp/Documents/Uni/KMPS/Praktikum/P2/resources/alben.xml")
   val xmlFile = fileSource.toList; fileSource.close()
   val tokenList = createTokenList(xmlFile, Nil)
-  println(tokenList)
+  printList(tokenList)
 }

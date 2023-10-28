@@ -16,8 +16,8 @@ object Main {
       createTokenList(xs, newTokenList)
     case '>'::x::xs =>
       x match {
-        case '\r' =>
-          createTokenList(xs , tokenList) //exclude whitespaces /r or /n depending on the system
+        case '\r' | '\n' =>
+          createTokenList(xs , tokenList) //exclude whitespaces \r or \n depending on the system
         case _ =>
           val newTokenList = tokenList :+ getStringContent(x :: xs, "")
           createTokenList(xs, newTokenList)
@@ -35,12 +35,15 @@ object Main {
       getStringContent(tail, builtString)
   }
 
+  private def printList(saidList: List[Any]) :Unit = saidList match {
+    case Nil =>
+    case x::xs => println(x); printList(xs)
+  }
+
   def main(args: Array[String]): Unit = {
     val fileSource = Source.fromFile("resources/alben.xml")
     val xmlFile = fileSource.toList; fileSource.close()
     val tokenList = createTokenList(xmlFile, Nil)
-    for(element <- tokenList) {
-      println(element)
-    }
+    printList(tokenList)
   }
 }
