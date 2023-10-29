@@ -7,16 +7,22 @@ This is a Scala application for parsing XML files representing albums and their 
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
+   git clone https://github.com/PhiLooFH/KMPS-Praktikum2.git
    ```
 
 2. **Compile and Run**:
 
-   You can compile and run the Scala program using the following commands:
+   You can compile and run the Scala program or run it from within the CLI using the following commands:
 
    ```bash
-   cd your-repo
-   sbt run
+   cd src
+   scala P2.sc
+   ```
+
+   ```bash
+   cd src
+   scalac Main.scala
+   scala Main.scala
    ```
 
 3. **Input XML File**:
