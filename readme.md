@@ -75,7 +75,7 @@ Please ensure that your XML file adheres to this structure.
 
 ## Example
 
-Example of how to use the parsing Methods:
+Example of how to use the parser methods:
 
 ```scala
 object Main {
