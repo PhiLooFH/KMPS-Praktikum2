@@ -1,29 +1,87 @@
-# XML Parser in Scala
+# Scala XML Parser
 
-This Scala program is a simple XML parser that converts a `List[Char]` containing XML data into a `List[String]` where each string represents a full XML tag. It uses pattern matching to identify and extract XML tags from the character list.
+This is a Scala application for parsing XML files representing albums and their tracks. It extracts the album details, including title, date, artist, and a list of tracks with their properties.
 
-## How to Use
+## Usage
 
-1. Clone the repository or copy the code into your own Scala project.
+1. **Clone the Repository**:
 
-2. To parse XML data, use the `parseXML` method of the `XMLParser` object. Pass a `List[Char]` as input to this method, and it will return a `List[String]` containing each full XML tag.
+   ```bash
+   git clone https://github.com/yourusername/your-repo.git
+   ```
 
-   ```scala
-   val xmlChars = List('<', 't', 'a', 'g', '>', 'c', 'o', 'n', 't', 'e', 'n', 't', '<', '/', 't', 'a', 'g', '>', 'm', 'o', 'r', 'e', '<', 't', 'a', 'g', '>', 'd', 'a', 't', 'a', '<', '/', 't', 'a', 'g', '>', '<', '/', 'r', 'o', 'o', 't', '>')
-   val xmlTags = XMLParser.parseXML(xmlChars)
-   xmlTags.foreach(println)
+2. **Compile and Run**:
 
+   You can compile and run the Scala program using the following commands:
+
+   ```bash
+   cd your-repo
+   sbt run
+   ```
+
+3. **Input XML File**:
+
+   Make sure you have an XML file with album and track information. By default, the program reads the file located at `src/resources/alben.xml`. You can replace this file with your own XML file.
+
+## Description
+
+This Scala program uses tail-recursive functions to parse an XML file and extract album information. It defines two main data structures: `Album` and `Track`.
+
+- `Album`:
+   - `title`: The title of the album.
+   - `date`: The release date of the album.
+   - `artist`: The artist or band associated with the album.
+   - `tracks`: A list of `Track` objects representing the individual tracks on the album.
+
+- `Track`:
+   - `title`: The title of the track.
+   - `length`: The length of the track.
+   - `rating`: The rating of the track.
+   - `features`: A list of featured artists or contributors.
+   - `writers`: A list of writers or composers of the track.
+
+The program reads the XML file, tokenizes it, and then recursively parses the tokens to build a list of `Album` objects. It prints the list of albums and their details.
+
+## XML Structure
+
+The XML file should follow this structure:
+
+```xml
+<album>
+  <title>Album Title</title>
+  <date>Release Date</date>
+  <artist>Artist Name</artist>
+  <track>
+    <title>Track Title</title>
+    <length>Track Length</length>
+    <rating>Track Rating</rating>
+    <feature>Feature 1</feature>
+    <feature>Feature 2</feature>
+    <writing>Writer 1</writing>
+    <writing>Writer 2</writing>
+  </track>
+  <!-- Add more tracks as needed -->
+</album>
+<!-- Add more albums as needed -->
+```
+
+Please ensure that your XML file adheres to this structure.
 
 ## Example
-1. Suppose you have the following XML data as a List[Char]:
-    ```scala
-    val xmlChars = List('<', 'root', '>', '<', 'tag', '>', 'content', '<', '/', 'tag', '>', 'more', '<', 'tag', '>', 'data', '<', '/', 'tag', '>', '<', '/', 'root', '>')
-2. When you parse it using the provided code, you'll get the following result:
-    ```xml
-   <root>
-     <tag>
-     </tag>
-       more
-     <tag>
-     </tag>
-    </root>
+
+Example of how to use the parsing Methods:
+
+```scala
+object MyApp {
+  def main(args: Array[String]): Unit = {
+    val fileSource = Source.fromFile("your-xml-file.xml")
+    val xmlFile = fileSource.toList
+    fileSource.close()
+    
+    val tokenList = Main.createTokenList(xmlFile, Nil)
+    val albumList = Main.parseFile(tokenList, Nil)
+    
+    // Print the list of albums and their details
+    Main.printList(albumList)
+  }
+}
