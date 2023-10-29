@@ -78,7 +78,8 @@ Please ensure that your XML file adheres to this structure.
 Example of how to use the parsing Methods:
 
 ```scala
-object MyApp {
+object Main {
+...
   def main(args: Array[String]): Unit = {
     val fileSource = Source.fromFile("your-xml-file.xml")
     val xmlFile = fileSource.toList
